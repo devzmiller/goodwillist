@@ -2,6 +2,14 @@ require 'spec_helper'
 
 describe User do
   let!(:user) { User.create!(name: "Marguerite Fish", email: "fish@llama.com", password: "ham")}
+  let!(:item) { ListItem.create!(keywords: "The Hobbit")}
+
+  describe 'associations' do
+    it 'has a list' do
+      user.list_items << item
+      expect(user.list_items).to all be_a ListItem
+    end
+  end
 
   describe 'validations' do
     context 'it is invalid when' do
