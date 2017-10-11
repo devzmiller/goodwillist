@@ -4,7 +4,11 @@
 
 <ul class="user-list">
   <% @user.list_items.each do |item| %>
-    <li><%= item.keywords %></li>
+    <li><%= item.keywords %>
+      <div class="edit-item-button">
+        <a href="/users/<%= @user.id %>/list_items/<%= item.id %>/edit">Edit</a>
+      </div>
+    </li>
   <% end %>
 </ul>
 
