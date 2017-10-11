@@ -38,13 +38,41 @@ describe "ListItemsController" do
       end
     end
     context 'put /list_items/:id' do
-      it 'returns redirect'
-      it 'redirects to user show page'
-      context 'other users are associated with the item' do
-        it 'creates a new list item and associates it with the user'
-        it 'destroys the user association with the old list item'
+      before(:each) do
+        user.list_items << item
+
       end
-      it 'modifies the existing list item if no other users are associated with it'
+      it 'returns redirect' do
+        put "/users/#{user.id}/list_items/#{item.id}", {keywords: "The Lord of the Rings"}
+        expect(last_response.redirect?).to be true
+      end
+      it 'redirects to user show page' do
+        put "/users/#{user.id}/list_items/#{item.id}", {keywords: "The Lord of the Rings"}
+        expect(last_response.location).to end_with "/users/#{user.id}"
+      end
+      it 'modifies the existing list item if no other users are associated with it' do
+        put "/users/#{user.id}/list_items/#{item.id}", {keywords: "The Lord of the Rings"}
+        item.reload
+        expect(item.keywords).to eq "The Lord of the Rings"
+      end
+      context 'other users are associated with the item' do
+        let!(:user2) { User.create!(name: "Georgina Fish", email: "georgina@llama.com", password: "ham")}
+        before(:each) do
+          user2.list_items << item
+          put "/users/#{user.id}/list_items/#{item.id}", {keywords: "Catfish"}
+        end
+        it 'creates a new list item and associates it with the user' do
+          new_item = ListItem.find_by_keywords("Catfish")
+          expect(user.list_items).to include new_item
+        end
+        it 'deletes the user association with the old list item' do
+          user.reload
+          expect(user.list_items).to_not include item
+        end
+        it 'does not destroy the old list item itself' do
+          expect(ListItem.find_by_keywords("The Hobbit")).to eq item
+        end
+      end
     end
   end
 end

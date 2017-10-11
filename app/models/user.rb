@@ -2,7 +2,7 @@ class User < ApplicationRecord
   validates :name, :email, :password_hash, presence: true
   validates :email, uniqueness: true
 
-  has_many :list_items_users
+  has_many :list_items_users, dependent: :destroy
   has_many :list_items, through: :list_items_users
 
   def password
