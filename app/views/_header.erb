@@ -4,7 +4,11 @@
 
 <nav>
   <ul id="nav">
-    <li><a href="/users/new">Create an Account</a></li>
-    <li><a href="/sessions/new">Login</a></li>
+    <% if session[:user_id] %>
+    <li><%= erb :'/sessions/_logout', layout: false %></li>
+    <% else %>
+      <li><a href="/users/new">Create an Account</a></li>
+      <li><a href="/sessions/new">Login</a></li>
+    <% end %>
   </ul>
 </nav>
