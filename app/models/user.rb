@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   end
 
   def password=(new_password)
+    return nil if new_password == ""
     @password = BCrypt::Password.create(new_password)
     self.password_hash = @password
   end
@@ -20,4 +21,5 @@ class User < ActiveRecord::Base
       return nil
     end
   end
+
 end
