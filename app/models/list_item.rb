@@ -1,4 +1,4 @@
-class ListItem < ActiveRecord::Base
+class ListItem < ApplicationRecord
   has_many :list_items_users
   has_many :users, through: :list_items_users
 end
