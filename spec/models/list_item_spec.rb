@@ -11,4 +11,10 @@ describe ListItem do
       expect(item.users).to include(user).and include(user2)
     end
   end
+  describe '#get_user_count' do
+    it 'it returns the number of users who are associated with an item' do
+      user.list_items << item
+      expect(item.get_user_count).to eq 1
+    end
+  end
 end

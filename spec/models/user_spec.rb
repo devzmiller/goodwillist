@@ -51,4 +51,5 @@ describe User do
       expect(User.authenticate("fish@llama.com", "spam")).to be_nil
     end
   end
+
 end
