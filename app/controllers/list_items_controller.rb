@@ -30,3 +30,16 @@ put '/users/:user_id/list_items/:id' do
     redirect "/users/#{params[:user_id]}"
   end
 end
+
+delete '/users/:user_id/list_items/:id' do
+  list_item = ListItem.find(params[:id])
+  user = User.find(params[:user_id])
+  if list_item.get_user_count > 1
+    user.list_items.destroy(list_item)
+    user.save
+    redirect "/users/#{params[:user_id]}"
+  else
+    list_item.destroy
+    redirect "/users/#{params[:user_id]}"
+  end
+end

@@ -40,7 +40,6 @@ describe "ListItemsController" do
     context 'put /list_items/:id' do
       before(:each) do
         user.list_items << item
-
       end
       it 'returns redirect' do
         put "/users/#{user.id}/list_items/#{item.id}", {keywords: "The Lord of the Rings"}
@@ -72,6 +71,40 @@ describe "ListItemsController" do
         it 'does not destroy the old list item itself' do
           expect(ListItem.find_by_keywords("The Hobbit")).to eq item
         end
+      end
+    end
+  end
+
+  describe 'deleting a list item' do
+    before(:each) do
+      user.list_items << item
+    end
+    context 'when nobody else owns this list item' do
+      before(:each) do
+        delete "users/#{user.id}/list_items/#{item.id}"
+      end
+      it 'returns redirect' do
+        expect(last_response.redirect?).to be true
+      end
+      it 'redirects to user show page' do
+        expect(last_response.location).to end_with "/users/#{user.id}"
+      end
+      it "deletes the user's association with the item" do
+        user.reload
+        expect(user.list_items).to_not include item
+      end
+      it 'deletes the item from the database' do
+        expect(ListItem.all).to_not include item
+      end
+    end
+    context 'when other users own this list item' do
+      let!(:user2) { User.create!(name: "Georgina Fish", email: "georgina@llama.com", password: "ham")}
+      before(:each) do
+        user2.list_items << item
+        delete "users/#{user.id}/list_items/#{item.id}"
+      end
+      it "does not delete the item from the database" do
+        expect(ListItem.all).to include item
       end
     end
   end
