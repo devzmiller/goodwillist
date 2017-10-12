@@ -8,6 +8,12 @@
       <div class="edit-item-button">
         <a href="/users/<%= @user.id %>/list_items/<%= item.id %>/edit">Edit</a>
       </div>
+      <div class="delete-item-button">
+        <form class="delete-item-form" action="/users/<%= @user.id %>/list_items/<%= item.id %>" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <input type="submit" value="Delete">
+        </form>
+      </div>
     </li>
   <% end %>
 </ul>
