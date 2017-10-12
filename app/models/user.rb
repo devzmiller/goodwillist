@@ -1,6 +1,8 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   validates :name, :email, :password_hash, presence: true
   validates :email, uniqueness: true
+
+  has_and_belongs_to_many :list_items
 
   def password
     @password ||= BCrypt::Password.new(password_hash)

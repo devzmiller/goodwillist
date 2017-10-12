@@ -7,13 +7,14 @@ gem 'pg'
 gem 'sinatra', '~> 1.0'
 gem 'sinatra-contrib'
 
-gem 'activesupport', '~>4.2.0'
-gem 'activerecord', '~>4.2.0'
+gem 'activesupport', '~> 5.0'
+gem 'activerecord', '~> 5.0'
 
 gem 'rake'
 gem 'faker'
 gem 'bcrypt'
 gem 'shotgun', '~>0.9.1'
+gem 'dotenv'
 
 group :test do
   gem 'shoulda-matchers'

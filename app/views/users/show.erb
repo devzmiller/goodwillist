@@ -1,1 +1,21 @@
 <h2>Welcome, <%= @user.name %></h2>
+
+<h3>Your List:</h3>
+
+<ul class="user-list">
+  <% @user.list_items.each do |item| %>
+    <li><%= item.keywords %>
+      <div class="edit-item-button">
+        <a href="/users/<%= @user.id %>/list_items/<%= item.id %>/edit">Edit</a>
+      </div>
+      <div class="delete-item-button">
+        <form class="delete-item-form" action="/users/<%= @user.id %>/list_items/<%= item.id %>" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <input type="submit" value="Delete">
+        </form>
+      </div>
+    </li>
+  <% end %>
+</ul>
+
+<a href="/user/<%= @user.id %>/list_items/new">Add an item to your list</a>

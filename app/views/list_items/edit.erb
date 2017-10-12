@@ -1,0 +1,6 @@
+<form class="edit-item-form" action="/users/<%= @user.id %>/list_items/<%= @list_item.id %>" method="post">
+  <input type="hidden" name="_method" value="put">
+  <label for="keywords">Keywords:</label>
+  <input type="text" name="keywords" value="<%= @list_item.keywords %>">
+  <input type="submit" value="Edit this item">
+</form>
