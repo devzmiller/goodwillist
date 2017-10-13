@@ -15,6 +15,7 @@ gem 'faker'
 gem 'bcrypt'
 gem 'shotgun', '~>0.9.1'
 gem 'dotenv'
+gem 'rest-client'
 
 group :test do
   gem 'shoulda-matchers'
