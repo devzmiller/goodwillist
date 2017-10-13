@@ -1,0 +1,23 @@
+
+
+<ul class="available-items">
+
+</ul>
+
+<script type="text/javascript">
+  const itemHandler = ((root) => {
+    root.findItemsIneBayStoresResponse
+    let items = root.findItemsIneBayStoresResponse[0].searchResult[0].item
+    items.forEach((item) => {
+      console.log(item);
+      let itemLi = '<li class="item">';
+      itemLi += `<h3><a href="${item.viewItemURL[0]}">${item.title[0]}</a></h3>`;
+      itemLi += `<img src="${item.galleryURL[0]}" alt="image of item" />`;
+      itemLi += `<p>Condition: ${item.condition[0].conditionDisplayName[0]}</p></li>`;
+      $(".available-items").append(itemLi);
+    })
+  })
+</script>
+<% @api_urls.each do |url| %>
+  <script type="text/javascript" src="<%= url %>"></script>
+<% end %>

@@ -17,7 +17,7 @@ require 'logger'
 require 'faker'
 require 'sinatra'
 require "sinatra/reloader" if development?
-
+require 'dotenv/load'
 require 'erb'
 
 # Some helper constants for path-centric logic

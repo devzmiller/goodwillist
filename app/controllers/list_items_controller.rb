@@ -1,23 +1,23 @@
-get '/user/:user_id/list_items/new' do
-  if session[:user_id] == params[:user_id]
+get '/users/:user_id/list_items/new' do
+  # if session[:user_id] == params[:user_id]
     @user = User.find(params[:user_id])
     erb :'/list_items/new'
-  else
-    status 404
-    erb :'/404'
-  end
+  # else
+  #   status 404
+  #   erb :'/404'
+  # end
 end
 
 post '/users/:user_id/list_items' do
-  if session[:user_id] == params[:user_id]
+  # if session[:user_id] == params[:user_id]
     @list_item = ListItem.find_or_create_by(keywords: params[:keywords])
     @user = User.find(params[:user_id])
     @user.list_items << @list_item
     redirect "/users/#{@user.id}"
-  else
-    status 404
-    erb :'/404'
-  end
+  # else
+  #   status 404
+  #   erb :'/404'
+  # end
 end
 
 get '/users/:user_id/list_items/:id/edit' do
