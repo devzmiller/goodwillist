@@ -8,7 +8,7 @@ describe "ListItemsController" do
 
     describe 'get /list_items/new' do
       it 'returns OK status' do
-        get "/user/#{user.id}/list_items/new", {}, "rack.session" => {user_id: "#{user.id}"}
+        get "/users/#{user.id}/list_items/new", {}, "rack.session" => {user_id: "#{user.id}"}
         expect(last_response).to be_ok
       end
       it 'returns 404 status if not authorized' do
