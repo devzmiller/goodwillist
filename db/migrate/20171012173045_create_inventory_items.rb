@@ -4,7 +4,7 @@ class CreateInventoryItems < ActiveRecord::Migration[5.0]
       t.string :title, null: false
       t.string :url, null: false
       t.string :ebay_id, null: false, unique: true
-      t.string :image_url, null: false
+      t.string :image_url
       t.string :condition, null: false
       t.timestamps
     end

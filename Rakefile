@@ -138,6 +138,11 @@ task "console" do
   exec "irb -r./config/environment"
 end
 
+desc "Generate the inventory database from eBay"
+task "api_call" do
+  ebay_response = InventoryItem.get_ebay_inventory
+  InventoryItem.parse_all_json(ebay_response)
+end
 
 # In a production environment like Heroku, RSpec might not
 # be available.  To handle this, rescue the LoadError.
